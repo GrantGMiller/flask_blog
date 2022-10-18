@@ -1,0 +1,38 @@
+{% extends "admin_base.html" %}
+{% block body %}
+{% for post in posts %}
+<div class="container m-3">
+    <div class="row">
+        <div class="col">Date:</div>
+        <div class="col">{{ post.created }}</div>
+    </div>
+    <div class="row">
+        <div class="col">Title:</div>
+        <div class="col"> {{ post['title'][:25] + '...' }}</div>
+    </div>
+    <div class="row">
+        <div class="col">Subtitle:</div>
+        <div class="col"> {{ post['subtitle'][:25] + '...' }}</div>
+    </div>
+    <div class="row">
+        <div class="col">Body: </div>
+        <div class="col">{{ post['body'][:25] + '...' }}</div>
+    </div>
+    <div class="row">
+        <div class="col">URL:</div>
+        <div class="col"> {{ post.url }}</div>
+    </div>
+    <div class="row">
+        <div class="col"> uuid: </div>
+        <div class="col">{{ post.uuid }}</div>
+    </div>
+    <div class="row">
+        <div class="col"><a class='btn btn-primary mt-3' href="/admin/edit_post/{{ post.uuid }}"/>Edit</a></div>
+        <div class="col">Public: <input type="checkbox" id='test' onchange="fetch('/post/public/{{post["uuid"]}}/' + this.checked )"
+             {% if post.get('public', None)%} checked {%endif%}/></div>
+    </div>
+
+</div>
+<hr/>
+{% endfor %}
+{% endblock %}
