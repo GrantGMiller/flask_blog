@@ -53,7 +53,8 @@ def setup(app):
             return render_template(
                 'admin_edit_post.html',
                 post=post,
-                menu=GetMenu()
+                menu=GetMenu(),
+                uuid=post['uuid'],
             )
 
     @app.route('/admin/delete_all')

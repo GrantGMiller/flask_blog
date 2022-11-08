@@ -24,7 +24,7 @@ def index():
         'index.html',
         title=config.TITLE,
         subtitle=config.SUBTITLE,
-        posts=app.db.FindAll(Post, _reverse=True),
+        posts=app.db.FindAll(Post, _reverse=True, public=True),
         socialMedia=[
             # Social('http://twitter.com', 'twitter'),
             # Social('http://facebook.com', 'facebook'),
@@ -35,7 +35,7 @@ def index():
 
 @app.route('/post/<UUID>')
 def view_post(UUID):
-    post = app.db.FindOne(Post, uuid=UUID)
+    post = app.db.FindOne(Post, uuid=UUID, public=True)
     if not post or not UUID:
         return redirect('/')
     else:

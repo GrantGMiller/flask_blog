@@ -1,6 +1,6 @@
 {% extends "admin_base.html" %}
 {% block body %}
-<form class="container w-100 mx-auto mt-3 h-100" target="/admin/edit_post" method="POST">
+<form class="container w-100 mx-auto mt-3 h-100" action="/admin/edit_post/{{ uuid }}" method="POST">
     <input type="hidden" name='uuid' value="{{ uuid }}"/>
     Title: <input class='w-100' name="title" value="{{ post.title }}"/>
     <br>
