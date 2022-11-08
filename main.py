@@ -1,7 +1,6 @@
-from collections import namedtuple
-
 import flask_dictabase
 import flask_login_dictabase_blueprint
+from collections import namedtuple
 from flask import Flask, render_template, redirect
 
 import admin
@@ -9,7 +8,7 @@ import config
 from post_model import Post
 
 app = Flask('Blog')
-app.config['SECRET_KEY'] = config.SECRET_KEY
+app.config['SECRET_KEY'] = config.get(SECRET_KEY, '')
 
 app.db = flask_dictabase.Dictabase(app)
 
@@ -22,8 +21,8 @@ Social = namedtuple('Social', ['url', 'type'])
 def index():
     return render_template(
         'index.html',
-        title=config.TITLE,
-        subtitle=config.SUBTITLE,
+        title=config.get('TITLE', 'Blog Title'),
+        subtitle=config.get('SUBTITLE', 'Blog Subtitle'),
         posts=app.db.FindAll(Post, _reverse=True, public=True),
         socialMedia=[
             # Social('http://twitter.com', 'twitter'),
@@ -42,8 +41,8 @@ def view_post(UUID):
         return render_template(
             'post.html',
             post=post,
-            title=config.TITLE,
-            subtitle=config.SUBTITLE,
+            title=config.get('TITLE', 'Blog Title'),
+            subtitle=config.get('SUBTITLE', 'Blog Subtitle'),
         )
 
 
